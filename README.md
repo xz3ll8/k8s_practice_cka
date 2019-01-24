@@ -1,1 +1,1 @@
-# k8s_practice_cka
+# Store CKA practice scripts
