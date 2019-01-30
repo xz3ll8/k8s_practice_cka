@@ -1,0 +1,30 @@
+# Create a deployment with two replicas of nginx:1.7.9. 
+# The container listens on port 80. 
+# It should be named "web-dep" and be labeled with tier=frontend with an annotation of AppVersion=3.4. 
+# The containers must be running with the UID of 1000.
+#
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: web-dep
+  annotations: 
+    AppVersion: "3.4"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        tier: frontend
+    spec:
+      securityContext:
+        runAsUser: 1000
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+        command: ["sleep","1000"]
